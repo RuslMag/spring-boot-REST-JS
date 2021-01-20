@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Все пользователи</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" href="css/dashboard.css" th:href="@{/css/dashboard.css}">
+</head>
+<body>
+
+<nav class="navbar navbar-expand sticky-top navbar-dark bg-dark" aria-label="Second navbar example">
+    <div class="container-fluid">
+        <ul class="navbar-nav px-3" id="navBarInfo">
+            <li class="nav-item d-inline-flex">
+                <!--тут выведет юзера с ролью с помощью js-->
+            </li>
+        </ul>
+        <ul class="navbar-nav px-3">
+            <li class="nav-item text-nowrap">
+                <a class="nav-link" href="/logout">Выход</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <nav class="col-md-3 col-lg-2 d-md-block bg-light sidebar" id="nav-sidebar">
+            <div class="position-sticky pt-3">
+                <div class="list-group" id="list-tab" role="tablist">
+                    <a aria-controls="home" class="list-group-item list-group-item-action active" href="/admin">
+                        Администратор</a>
+                    <a aria-controls="profile" class="list-group-item list-group-item-action" href="/user">
+                        Пользователь</a>
+                </div>
+            </div>
+        </nav>
+        <div class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
+                <h1 class="h2">Страница Администратора</h1>
+            </div>
+            <nav>
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                    <a aria-controls="list-users" aria-selected="true" class="nav-link active" data-bs-toggle="tab"
+                       href="#list-users" id="list-users-tab" role="tab">
+                        Список юзеров
+                    </a>
+                    <a aria-controls="nav-profile" aria-selected="false" class="nav-link" data-bs-toggle="tab"
+                       href="#create-user" id="create-user-tab" role="tab">
+                        Добавить юзера
+                    </a>
+                </div>
+            </nav>
+            <div class="tab-content" id="nav-tabContent">
+                <div aria-labelledby="list-users-tab" class="tab-pane fade show active" id="list-users" role="tabpanel">
+                    <div class="card" id="hideUsersTable">
+                        <h5 class="card-header">Все пользователи</h5>
+                        <div class="my-2 p-3 bg-white rounded">
+                            <div class="border-bottom"></div>
+                            <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table table-striped" id="listUsersInfo">
+                                        <thead>
+                                        <tr class="align-middle">
+                                            <th>ID</th>
+                                            <th>Имя</th>
+                                            <th>Возраст</th>
+                                            <th>Город</th>
+                                            <th>Email</th>
+                                            <th>Пароль</th>
+                                            <th>Роль</th>
+                                            <th>Изменить</th>
+                                            <th>Удалить</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody class="align-middle">
+                                        <!--тут выводит список юзеров-->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--Добавить нового пользователя-->
+                <div aria-labelledby="create-user-tab" class="tab-pane fade" id="create-user" role="tabpanel">
+                    <div class="card" id="hideCreateUser">
+                        <h5 class="card-header">Добавить пользователя</h5>
+                        <div class="my-2 p-3 bg-white rounded">
+                            <div class="row justify-content-center align-items-center text-center h-100 ">
+                                <div class="col col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                                    <form>
+                                        <div class="mb-3">
+                                            <label for="name">Введите имя</label>
+                                            <input class="form-control form-control-sm"
+                                                   type="text" id="name" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="age">Введите возраст</label>
+                                            <input class="form-control form-control-sm"
+                                                   type="number" id="age" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="city">Введите город</label>
+                                            <input class="form-control form-control-sm"
+                                                   type="text" id="city" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="email">Введите Email</label>
+                                            <input class="form-control form-control-sm"
+                                                   type="email" id="email" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="password">Введите пароль</label>
+                                            <input class="form-control form-control-sm" type="password"
+                                                   id="password" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="roleSelect">Роль</label>
+                                            <select class="form-select" id="roleSelect"
+                                                    multiple size="2" name="roles">
+                                                <option value="ROLE_ADMIN">Администратор</option>
+                                                <option value="ROLE_USER">Пользователь</option>
+                                            </select>
+                                        </div>
+                                        <button class="w-100 btn btn-success btn-lg btn-block" id="createUser">
+                                            Добавить
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--изменить пользователя-->
+                <div id="upd" class="modal fade" data-bs-backdrop="static" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Изменить пользователя</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row justify-content-center
+                                            align-items-center text-center h-100 ">
+
+                                    <form class="center-block  text-center">
+                                        <div class="form-group">
+                                            <label for="idEdit">ID</label>
+                                            <input type="text" class="form-control"
+                                                   id="idEdit"
+                                                   name="idEdit"
+                                                   readonly/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="userNameEdit">Имя
+                                                пользователя</label>
+                                            <input type="text" class="form-control"
+                                                   id="userNameEdit"
+                                                   name="username"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="userAgeEdit">Возраст</label>
+                                            <input type="number" class="form-control"
+                                                   id="userAgeEdit"
+                                                   name="age"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="userCityEdit">Город</label>
+                                            <input type="text" class="form-control"
+                                                   id="userCityEdit"
+                                                   name="city"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="userEmailEdit">E-mail</label>
+                                            <input type="email" class="form-control"
+                                                   id="userEmailEdit"
+                                                   name="email"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="userPasswordEdit">Пароль</label>
+                                            <input type="text" class="form-control"
+                                                   id="userPasswordEdit"
+                                                   name="password"/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="roleSelectEdit">Роль</label>
+                                            <select class="form-select"
+                                                    id="roleSelectEdit"
+                                                    multiple size="2" name="roles">
+                                                <option value="ROLE_ADMIN">
+                                                    Администратор
+                                                </option>
+                                                <option selected value="ROLE_USER">
+                                                    Пользователь
+                                                </option>
+                                            </select>
+                                        </div>
+                                        <div class="modal-footer" id="updateButtonInModal">
+                                            <div>
+                                            </div>
+                                            <button type="button" class="btn btn-secondary"
+                                                    id="closeUpdateModal" data-bs-dismiss="modal">Закрыть
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!--удалить юзера-->
+                <div id="del" class="modal fade" data-bs-backdrop="static" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content col-md-8">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Удалить пользователя</h4>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row justify-content-center
+                                            align-items-center text-center h-100 ">
+
+                                    <form class="center-block  text-center">
+                                        <div class="form-group">
+                                            <label for="idDelete">ID</label>
+                                            <input type="text" class="form-control"
+                                                   id="idDelete"
+                                                   name="id"
+                                                   readonly/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="userNameDelete">Имя
+                                                пользователя</label>
+                                            <input type="text" class="form-control"
+                                                   id="userNameDelete"
+                                                   name="username"
+                                                   readonly/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="userAgeDelete">Возраст</label>
+                                            <input type="number" class="form-control"
+                                                   id="userAgeDelete"
+                                                   name="age"
+                                                   readonly/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="userCityDelete">Город</label>
+                                            <input type="text" class="form-control"
+                                                   id="userCityDelete"
+                                                   name="city"
+                                                   readonly/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="userEmailDelete">E-mail</label>
+                                            <input type="email" class="form-control"
+                                                   id="userEmailDelete"
+                                                   name="email"
+                                                   readonly/>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="roleSelectDelete">Роль</label>
+                                            <input type="text" class="form-control" id="roleSelectDelete"
+                                                   name="roles" readonly/>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="modal-footer" id="deleteButtonInModal">
+                                <div>
+                                </div>
+                                <button type="button" class="btn btn-secondary"
+                                        id="closeDeleteModal" data-bs-dismiss="modal">Закрыть
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script type="text/javascript" src="js/main.js" th:href="@{/js/main.js}"></script>
+<script th:src="@{/webjars/popper.js/2.5.4/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</body>
+</html>
